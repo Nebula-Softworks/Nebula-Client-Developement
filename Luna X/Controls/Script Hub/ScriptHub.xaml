@@ -1,0 +1,383 @@
+﻿<UserControl x:Class="Luna_X.Controls.Script_Hub.ScriptHub"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Luna_X.Controls.Script_Hub"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:materialdesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <!--COPIED FROM MAINWINDOW SO INDENTING IS BAD-->
+    
+    <Grid>
+        <!--Searchbar-->
+        <Border x:Name="SearchBarBorder"
+                Height="41"
+                                                    Margin="8,5,92,0"
+                                                    VerticalAlignment="Top"
+                                                    Background="#09FDFBFF"
+                                                    BorderBrush="#00FFFFFF"
+                                                    BorderThickness="0 0 0 1"
+                                                    CornerRadius="5"
+                                                    Visibility="Visible">
+
+            <Grid>
+                <TextBox x:Name="ScriptHubSearch"
+                                                             Margin="10,0,0,0"
+                                                             Background="Transparent"
+                                                             BorderBrush="White"
+                                                             BorderThickness="0"
+                                                             FontFamily="/Luna X;component/Fonts/#Poppins"
+                                                             FontSize="12"
+                                                             VerticalContentAlignment="Center"
+                                                             Foreground="#FFE8E8E8"
+                                                             Style="{StaticResource placeHolderNoUnderline}"
+                                                             KeyDown="ScriptHubSearch_KeyDown"
+                                                             Tag="Search Script Cloud...">
+
+                    <TextBox.Triggers>
+                        <EventTrigger RoutedEvent="GotKeyboardFocus">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.2" 
+                                                                                            Storyboard.TargetName="SearchBarBorder"
+                                                                                            Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                                                            To="#7FFFFFFF">
+                                            <ColorAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseIn"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="LostKeyboardFocus">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.2" 
+                                                                                            Storyboard.TargetName="SearchBarBorder"
+                                                                                            Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                                                            To="#00FFFFFF">
+                                            <ColorAnimation.EasingFunction>
+                                                <QuarticEase EasingMode="EaseIn"/>
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </TextBox.Triggers>
+
+                </TextBox>
+                <Button x:Name="SearchButton"
+                                                            Width="32"
+                                                            Height="32"
+                                                            Margin="0,0,4,0"
+                                                            Padding="0 0 0 1"
+                                                            HorizontalAlignment="Right"
+                                                            VerticalAlignment="Center"
+                                                            Background="Transparent"
+                                                            BorderBrush="{x:Null}"
+                                                            BorderThickness="0"
+                                                            FontSize="17"
+                                                            Foreground="#FFFFFF"
+                                                            FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Material Icons Round"
+                                                            IsHitTestVisible="True"
+                                                            Click="SearchButton_Click"
+                                                            materialdesign:ButtonAssist.CornerRadius="3"
+                                                            ToolTip="Refresh Search"
+                                                            ToolTipService.HasDropShadow="True"
+                                                            ToolTipService.InitialShowDelay="500"
+                                                            Content="search" />
+
+                <ComboBox x:Name="ScriptHubSelect"
+                                                                  Background="Transparent"
+                                                                  BorderBrush="#DF41434A"
+                                                                  BorderThickness="1"
+                                                                  Margin="0 0 40 0"
+                                                                  Width="180"
+                                                                  HorizontalAlignment="Right"
+                                                                  VerticalAlignment="Center"
+                                                                  Height="30"
+                                                                  Padding="5 0 0 0"
+                                                                  SelectedIndex="0"
+                                                                  VerticalContentAlignment="Center"
+                                                                  SelectionChanged="ScriptHubSelect_Selected"
+                                                                  FontFamily="/Luna X;component/Graphics/Fonts/#Poppins Medium"
+                                                                  Foreground="White">
+                    <ComboBoxItem Tag="&#xea28;"
+                                                                          FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Material Icons Round"
+                                                                          FontSize="16">
+                        Scriptblox Scripts
+                    </ComboBoxItem>
+                    <ComboBoxItem Tag="&#xf156;"
+                                                                          FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Font Awesome 6 Free Solid"
+                                                                          FontSize="14">
+                        Rscripts Scripts
+                    </ComboBoxItem>
+                    <ComboBoxItem Tag="M"
+                                                                          FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Font Awesome 6 Free Solid"
+                                                                          FontSize="14">
+                        MastersMZ Scripts
+                    </ComboBoxItem>
+                    <ComboBoxItem Tag="&#xf500;"
+                                                                          FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Font Awesome 6 Free Solid"
+                                                                          FontSize="14">
+                        Community Scripts
+                    </ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <!--Favourite And Cloud Switch-->
+        <Border x:Name="SwitchGamesWindowBorder"
+                                                    Width="82"
+                                                    Height="41"
+                                                    Margin="0,5,5,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    Background="#09FDFBFF"
+                                                    BorderBrush="#00FFFFFF"
+                                                    BorderThickness="1,1,1,1"
+                                                    CornerRadius="5"
+                                                    Visibility="Visible">
+            <Grid>
+                <Button x:Name="CloudScriptButton"
+                                                            Margin="0,0,0,0"
+                                                            Padding="2 0 0 0"
+                                                            HorizontalAlignment="Left"
+                                                            Width="39"
+                                                            Height="39"
+                                                            VerticalAlignment="Stretch"
+                                                            Background="Transparent"
+                                                            BorderBrush="{x:Null}"
+                                                            BorderThickness="0"
+                                                            FontSize="20"
+                                                            Foreground="{DynamicResource Accent}"
+                                                            FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Material Icons Round"
+                                                            IsHitTestVisible="True"
+                                                            Click="CloudScriptToggle"
+                                                            materialdesign:ButtonAssist.CornerRadius="3"
+                                                            ToolTip="View Cloud Scripts"
+                                                            ToolTipService.HasDropShadow="True"
+                                                            ToolTipService.InitialShowDelay="500"
+                                                            Content="gamepad" />
+                <Button x:Name="FavouriteScriptButton"
+                                                            Margin="0,0,0,0"
+                                                            Padding="0 0 0 1"
+                                                            HorizontalAlignment="Right"
+                                                            Width="39"
+                                                            Height="39"
+                                                            VerticalAlignment="Stretch"
+                                                            Background="Transparent"
+                                                            BorderBrush="{x:Null}"
+                                                            BorderThickness="0"
+                                                            FontSize="17"
+                                                            Foreground="#FFFFFF"
+                                                            FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Font Awesome 6 Free Solid"
+                                                            IsHitTestVisible="True"
+                                                            Click="CloudScriptToggle"
+                                                            materialdesign:ButtonAssist.CornerRadius="3"
+                                                            ToolTip="View Favourited Scripts"
+                                                            ToolTipService.HasDropShadow="True"
+                                                            ToolTipService.InitialShowDelay="500"
+                                                            Content="star" />
+            </Grid>
+        </Border>
+
+        <!--Script Cards-->
+        <Grid Margin="0, 51, 5 ,5">
+            <Grid x:Name="ScriptScrollers">
+                <ScrollViewer x:Name="ScriptBloxScroller"
+                                                              ScrollChanged="ScriptScroller_ScrollChanged"
+                                                               VirtualizingPanel.IsVirtualizing="True"
+                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+
+                    <WrapPanel x:Name="ScriptBloxWrapper"
+                                                               VirtualizingPanel.IsVirtualizing="True"
+                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+                        <!--designer preview
+                                                          <ScriptHubControls:Script_Hub_Square/>
+                                                          <ScriptHubControls:Script_Hub_Square/>
+                                                          <ScriptHubControls:Script_Hub_Square/>
+                                                          <ScriptHubControls:Script_Hub_Square/>
+                                                          <ScriptHubControls:Script_Hub_Square/>
+                                                          <ScriptHubControls:Script_Hub_Square/>
+                                                          <ScriptHubControls:Script_Hub_Square/>
+                                                          <ScriptHubControls:Script_Hub_Square/>-->
+                    </WrapPanel>
+
+                </ScrollViewer>
+                <ScrollViewer x:Name="RscriptsScroller"
+                                                              Opacity="0"
+                                                              Visibility="Collapsed"
+                                                              ScrollChanged="ScriptScroller_ScrollChanged"
+                                                               VirtualizingPanel.IsVirtualizing="True"
+                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+
+                    <WrapPanel x:Name="RScriptsWrapper"
+                                                               VirtualizingPanel.IsVirtualizing="True"
+                                                               VirtualizingPanel.VirtualizationMode="Recycling"/>
+
+                </ScrollViewer>
+                <ScrollViewer x:Name="MastersMZScroller"
+                                                              Opacity="0"
+                                                              Visibility="Collapsed"
+                                                              ScrollChanged="ScriptScroller_ScrollChanged"
+                                                               VirtualizingPanel.IsVirtualizing="True"
+                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+
+                    <Grid x:Name="MastersMZWrapper"
+                                                               VirtualizingPanel.IsVirtualizing="True"
+                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+
+                        <TextBlock HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center"
+                                                                   Foreground="#CFDFDFDF"
+                                                                   FontFamily="/Luna X;component/Graphics/Fonts/#Poppins"
+                                                                   FontSize="44"
+                                                                   TextAlignment="Center"
+                                                                   Text="MastersMZ is currently down&#10;please try again later"/>
+
+                    </Grid>
+
+                </ScrollViewer>
+                <ScrollViewer x:Name="CommunityScroller"
+                                                              Opacity="0"
+                                                              Visibility="Collapsed"
+                                                              ScrollChanged="ScriptScroller_ScrollChanged"
+                                                               VirtualizingPanel.IsVirtualizing="True"
+                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+
+                    <WrapPanel x:Name="CommunityWrapper"
+                                                               VirtualizingPanel.IsVirtualizing="True"
+                                                               VirtualizingPanel.VirtualizationMode="Recycling"/>
+
+                </ScrollViewer>
+            </Grid>
+
+            <ScrollViewer x:Name="FavoriteScriptScroller"
+                                                          Opacity="0"
+                                                          Visibility="Collapsed"
+                                                           VirtualizingPanel.IsVirtualizing="True"
+                                                           VirtualizingPanel.VirtualizationMode="Recycling">
+
+                <WrapPanel x:Name="FavoriteScriptsWrapper" 
+                                                           VirtualizingPanel.IsVirtualizing="True"
+                                                           VirtualizingPanel.VirtualizationMode="Recycling"/>
+
+            </ScrollViewer>
+        </Grid>
+
+
+        <!--THE INFO PAGE DOES NOT WORK, I COULDNT BE BOTHERED TO FINISH IT, SORRY
+                                    IF YOU CAN FINISH IT AND THIS IS HERE, YOU CAN GO CREATE A PULL REQUEST OR SMTH-->
+
+        <!--Info Page - i do this this way cus i am NOT creating a billion giant grids.-->
+        <!--<Grid x:Name="ScriptInfoPage">
+                                        <Button x:Name="GoBackInfoBtn"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                BorderBrush="Transparent"
+                                                Height="30"
+                                                Width="30"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="10"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Segoe Fluent Icons"
+                                                FontSize="14"
+                                                Foreground="WhiteSmoke"
+                                                Content="&#xe7ea;"/>
+
+                                        <Label x:Name="scriptAuthor_Info"
+                                               Height="30"
+                                               Margin="10"
+                                               VerticalAlignment="Top"
+                                               HorizontalContentAlignment="Right"
+                                               HorizontalAlignment="Right"
+                                               VerticalContentAlignment="Center"
+                                               Padding="8 0 8 0"
+                                               Foreground="WhiteSmoke"
+                                               FontFamily="/Luna X;component/Graphics/Fonts/#Poppins"
+                                               FontSize="14"
+                                               Content="Uploaded By {SCRIPT AUTHOR NAME HERE}"/>
+
+                                        <Grid Margin="10 46 10 10">
+                                            <Label x:Name="scriptTitle_Info"
+                                                   Height="30"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalContentAlignment="Right"
+                                                   HorizontalAlignment="Right"
+                                                   VerticalContentAlignment="Center"
+                                                   Padding="8 0 8 0"
+                                                   Foreground="WhiteSmoke"
+                                                   FontFamily="/Luna X;component/Graphics/Fonts/#Poppins Medium"
+                                                   FontSize="16"
+                                                   Content=" {SCRIPT NAME HERE}"/>
+                                            <Label x:Name="scriptGame_Info"
+                                                   Height="30"
+                                                   Margin="0 33 0 0"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalContentAlignment="Right"
+                                                   HorizontalAlignment="Right"
+                                                   VerticalContentAlignment="Center"
+                                                   Padding="8 0 8 0"
+                                                   Foreground="LightGray"
+                                                   FontFamily="/Luna X;component/Graphics/Fonts/#Poppins"
+                                                   FontSize="14"
+                                                   Content=" {SCRIPT Game NAME HERE}"/>
+
+                                            <Border x:Name="scriptImage_Info"
+                                                    Margin="5,0,300,30"
+                                                    CornerRadius="6">
+
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="/Luna X;component/Graphics/Images/no-script.png"
+                                                                Stretch="UniformToFill"
+                                                                TileMode="None"/>
+                                                </Border.Background>
+                                                
+                                            </Border>
+
+                                            <Button x:Name="scriptExecute_Info"
+                                                    Background="{DynamicResource Accent}"
+                                                    BorderBrush="Transparent"
+                                                    BorderThickness="0"
+                                                    Height="33"
+                                                    HorizontalAlignment="Right"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalAlignment="Top"
+                                                    Margin="10 67"
+                                                    VerticalContentAlignment="Center"
+                                                    Padding="15 0"
+                                                    FontFamily="/Luna X;component/Graphics/Fonts/#Poppins Medium"
+                                                    Foreground="White"
+                                                    FontSize="14"
+                                                    Content="Execute"
+                                                    materialdesign:ButtonAssist.CornerRadius="4"/>
+
+                                            <Button x:Name="scriptCopy_Info"
+                                                    Background="{DynamicResource AccentClear}"
+                                                    BorderBrush="Transparent"
+                                                    BorderThickness="0"
+                                                    Height="33"
+                                                    HorizontalAlignment="Right"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalAlignment="Top"
+                                                    Margin="108 67"
+                                                    VerticalContentAlignment="Center"
+                                                    Padding="15 0"
+                                                    FontFamily="/Luna X;component/Graphics/Fonts/#Poppins Medium"
+                                                    Foreground="White"
+                                                    FontSize="14"
+                                                    Content="Copy Script"
+                                                    materialdesign:ButtonAssist.CornerRadius="4"/>
+                                        </Grid>
+                                    </Grid>-->
+    </Grid>
+</UserControl>

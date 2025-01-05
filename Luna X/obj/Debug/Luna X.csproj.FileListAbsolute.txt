@@ -1,0 +1,17 @@
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Graphics\Styles\Buttons.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Graphics\Styles\Colors.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Graphics\Styles\Navigation.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Graphics\Styles\Scroll Bars.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Graphics\Styles\Text Boxes.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Controls\Misc\FullPopup.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Controls\Misc\Notification.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Controls\Misc\OptionPopup.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Controls\Misc\Tab System.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Controls\Script Hub\Script Hub Square.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Controls\Settings\Button.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\MainWindow.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\App.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Luna X_Content.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Luna X_MarkupCompile.cache
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\Debug\Luna X_MarkupCompile.lref

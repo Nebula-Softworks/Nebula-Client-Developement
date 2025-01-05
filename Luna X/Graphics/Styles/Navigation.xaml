@@ -1,0 +1,471 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="/Graphics/Styles/Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <!--  So this was inspired by valyse to the point i myself am thinking i skidded the design/code (which makes no sense now that im reading this) but ya  -->
+    <!--  PS. so now its kinda inspired by dynamic too. PSS everything is written from scratch, even if the design is the same, the code is (hopefully) different  -->
+    <Style x:Key="TabBar" TargetType="{x:Type RadioButton}">
+        <Setter Property="Foreground" Value="LightGray" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Grid>
+                        <Border
+                            x:Name="border"
+                            Width="36"
+                            Height="36"
+                            Background="{DynamicResource AccentClear}"
+                            BorderBrush="{DynamicResource AccentStroke}"
+                            BorderThickness="0.5"
+                            CornerRadius="4 4 4 4"
+                            Opacity="0">
+
+                            <Grid>
+                                <Border
+                                    x:Name="TopGlow"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,-5,-4,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Background="{DynamicResource AccentClear}"
+                                    CornerRadius="200">
+                                    <Border.Effect>
+                                        <BlurEffect Radius="20" />
+                                    </Border.Effect>
+                                </Border>
+                                <Border
+                                    x:Name="BottomGlow"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="-4,0,0,-5"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    Background="{DynamicResource AccentClear}"
+                                    CornerRadius="200">
+                                    <Border.Effect>
+                                        <BlurEffect Radius="20" />
+                                    </Border.Effect>
+                                </Border>
+                            </Grid>
+
+                            <Border.Clip>
+                                <RectangleGeometry
+                                    RadiusX="4"
+                                    RadiusY="4"
+                                    Rect="0,0,36,36" />
+                            </Border.Clip>
+
+                            <Border.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            BeginTime="0:0:0.2"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="1"
+                                                            Duration="0:0:0.2">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="0"
+                                                            Duration="0:0:0.1">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+
+                            </Border.Style>
+                        </Border>
+
+                        <Border
+                            x:Name="Indicator"
+                            Width="3"
+                            Height="3"
+                            Margin="8.5,0.5,0,0"
+                            HorizontalAlignment="Left"
+                            Background="{TemplateBinding BorderBrush}"
+                            CornerRadius="1.2"
+                            Opacity="0">
+                            <Border.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            BeginTime="0:0:0.1"
+                                                            Storyboard.TargetProperty="Height"
+                                                            From="4"
+                                                            To="15"
+                                                            Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="1"
+                                                            Duration="0:0:0.15">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetProperty="Height"
+                                                            From="18"
+                                                            To="4"
+                                                            Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation
+                                                            BeginTime="0:0:0.2"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="0"
+                                                            Duration="0:0:0.15">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+
+                            </Border.Style>
+                        </Border>
+
+                        <Label
+                            Width="43"
+                            Height="36"
+                            Padding="0,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Background="{x:Null}"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Content="{TemplateBinding Tag}"
+                            FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Font Awesome 6 Free Solid"
+                            FontSize="15"
+                            Foreground="{TemplateBinding Foreground}">
+                            
+                            <Label.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                            <!--
+                                                this doesnt work for some reason due to some immutable shit that i dont understand
+                                                if u can fix this, create a pull request and dm me or smth
+                                            -->
+                                            <!--<DataTrigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation From="#FFD3D3D3"
+                                                                                Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)"
+                                                                                To="#FFFFFFFF"
+                                                                                Duration="0:0:0.2">
+                                                                    <ColorAnimation.EasingFunction>
+                                                                        <QuarticEase EasingMode="EaseInOut" />
+                                                                    </ColorAnimation.EasingFunction>
+                                                                </ColorAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation From="#FFFFFFFF"
+                                                                                Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)"
+                                                                                To="#FFD3D3D3"
+                                                                                Duration="0:0:0.2">
+                                                                    <ColorAnimation.EasingFunction>
+                                                                        <QuarticEase EasingMode="EaseInOut" />
+                                                                    </ColorAnimation.EasingFunction>
+                                                                </ColorAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.ExitActions>-->
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <!--  so we're gonna do this non animated one which i guess is fine, you cant rlly tell  -->
+                <Setter Property="Foreground" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="TabBarFluent" TargetType="{x:Type RadioButton}">
+        <Setter Property="Foreground" Value="LightGray" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Grid>
+                        <Border
+                            x:Name="border"
+                            Width="36"
+                            Height="36"
+                            Background="{DynamicResource AccentClear}"
+                            BorderBrush="{DynamicResource AccentStroke}"
+                            BorderThickness="0.5"
+                            CornerRadius="4 4 4 4"
+                            Opacity="0">
+
+                            <Grid>
+                                <Border
+                                    x:Name="TopGlow"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,-5,-4,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Background="{DynamicResource AccentClear}"
+                                    CornerRadius="200">
+                                    <Border.Effect>
+                                        <BlurEffect Radius="20" />
+                                    </Border.Effect>
+                                </Border>
+                                <Border
+                                    x:Name="BottomGlow"
+                                    Width="20"
+                                    Height="20"
+                                    Margin="-4,0,0,-5"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    Background="{DynamicResource AccentClear}"
+                                    CornerRadius="200">
+                                    <Border.Effect>
+                                        <BlurEffect Radius="20" />
+                                    </Border.Effect>
+                                </Border>
+                            </Grid>
+
+                            <Border.Clip>
+                                <RectangleGeometry
+                                    RadiusX="4"
+                                    RadiusY="4"
+                                    Rect="0,0,36,36" />
+                            </Border.Clip>
+
+                            <Border.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            BeginTime="0:0:0.2"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="1"
+                                                            Duration="0:0:0.2">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="0"
+                                                            Duration="0:0:0.1">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+
+                            </Border.Style>
+                        </Border>
+
+                        <Border
+                            x:Name="Indicator"
+                            Width="3"
+                            Height="3"
+                            Margin="8.5,0.5,0,0"
+                            HorizontalAlignment="Left"
+                            Background="{TemplateBinding BorderBrush}"
+                            CornerRadius="1.2"
+                            Opacity="0">
+                            <Border.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            BeginTime="0:0:0.1"
+                                                            Storyboard.TargetProperty="Height"
+                                                            From="4"
+                                                            To="15"
+                                                            Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="1"
+                                                            Duration="0:0:0.15">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetProperty="Height"
+                                                            From="18"
+                                                            To="4"
+                                                            Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation
+                                                            BeginTime="0:0:0.2"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="0"
+                                                            Duration="0:0:0.15">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <QuarticEase EasingMode="EaseInOut" />
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+
+                            </Border.Style>
+                        </Border>
+
+                        <Label
+                            Width="43"
+                            Height="36"
+                            Padding="0,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Background="{x:Null}"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Content="{TemplateBinding Tag}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="{TemplateBinding Foreground}">
+                            <Label.Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                            <!--
+                                                this doesnt work for some reason due to some immutable shit that i dont understand
+                                                if u can fix this, create a pull request and dm me or smth
+                                            -->
+                                            <!--<DataTrigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation From="#FFD3D3D3"
+                                                                                Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)"
+                                                                                To="#FFFFFFFF"
+                                                                                Duration="0:0:0.2">
+                                                                    <ColorAnimation.EasingFunction>
+                                                                        <QuarticEase EasingMode="EaseInOut" />
+                                                                    </ColorAnimation.EasingFunction>
+                                                                </ColorAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation From="#FFFFFFFF"
+                                                                                Storyboard.TargetProperty="(Label.Foreground).(SolidColorBrush.Color)"
+                                                                                To="#FFD3D3D3"
+                                                                                Duration="0:0:0.2">
+                                                                    <ColorAnimation.EasingFunction>
+                                                                        <QuarticEase EasingMode="EaseInOut" />
+                                                                    </ColorAnimation.EasingFunction>
+                                                                </ColorAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.ExitActions>-->
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <!--  so we're gonna do this non animated one which i guess is fine, you cant rlly tell  -->
+                <Setter Property="Foreground" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

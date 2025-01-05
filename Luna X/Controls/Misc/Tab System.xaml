@@ -1,0 +1,419 @@
+﻿<!--stolen from linjector bahahah-->
+<!--but i still changed it its just the base thats copied but ya-->
+<!--i couldnt be bothered to indent the xaml after since this was mostly copied and pasted from other
+    projects of mine that arent indented at all-->
+
+
+<UserControl x:Class="Luna_X.Controls.Misc.Tab_System"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Luna_X.Controls.Misc"
+             xmlns:Core="clr-namespace:Luna_X.Core"
+             mc:Ignorable="d" TextOptions.TextFormattingMode="Display"
+             UseLayoutRounding="True"
+             TextOptions.TextRenderingMode="ClearType"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Core:EndsWithFinder x:Key="EndsWithFinder" />
+
+        <Style x:Key="Tabs" TargetType="{x:Type TabControl}">
+            <Setter Property="Control.Padding" Value="2"/>
+            <Setter Property="Control.HorizontalContentAlignment"
+                    Value="Center"/>
+            <Setter Property="Control.VerticalContentAlignment"
+                    Value="Center"/>
+            <Setter Property="Control.Background"
+                    Value="{StaticResource TabItem.Selected.Background}"/>
+            <Setter Property="Control.BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid x:Name="templateRoot"
+                              ClipToBounds="False" 
+                              SnapsToDevicePixels="true"
+                              KeyboardNavigation.TabNavigation="Local">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="ColumnDefinition0"/>
+                                <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition x:Name="RowDefinition0" Height="38"/>
+                                <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <ScrollViewer x:Name="TabScrollViewer"
+                                          Height="40"
+                                          VerticalScrollBarVisibility="Disabled"
+                                          Background="#00FFFFFF"
+                                          HorizontalScrollBarVisibility="Auto"
+                                          ClipToBounds="true">
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TabPanel x:Name="headerPanel"
+                                              Background="#00FFFFFF"
+                                              IsItemsHost="true" 
+                                              KeyboardNavigation.TabIndex="1"
+                                              ZIndex="1" 
+                                              Margin="0 2 0 0"/>
+
+                                    <!--the margin is done this way so the scrollwheels and stuff dont
+                                    make it look like shit again (it was at the like very top before)-->
+                                    <Button x:Name="AddTabButton"
+                                            Width="20"
+                                            Height="20"
+                                            Margin="5 7 0 0"
+                                            VerticalContentAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Padding="0 0 0 0"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0"
+                                            Click="ButtonTabs">
+
+                                        <Grid>
+                                            <Path Stroke="#FFB9BBBE" 
+                                                  StrokeThickness="1" 
+                                                  Data="M 0,4.5 L 9,4.5 "/>
+                                            <Path Stroke="#FFB9BBBE" 
+                                                  StrokeThickness="1"
+                                                  Data="M 4.5,0 L 4.5,9 "/>
+                                        </Grid>
+
+                                    </Button>
+                                </StackPanel>
+                            </ScrollViewer>
+
+                            <Border x:Name="contentPanel"
+                                    BorderBrush="{TemplateBinding Control.BorderBrush}"
+                                    BorderThickness="{TemplateBinding Control.BorderThickness}"
+                                    Background="Transparent" 
+                                    Grid.Column="0"
+                                    Grid.Row="1" 
+                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                    KeyboardNavigation.TabIndex="2"
+                                    KeyboardNavigation.TabNavigation="Local">
+
+                                <Grid>
+
+                                    <ContentPresenter ContentSource="SelectedContent" />
+
+                                    <Border CornerRadius="0 0 0 0"
+                                            HorizontalAlignment="Left"
+                                            Width="47"
+                                            Margin="0 0 0 -5"
+                                            BorderThickness="0 0 1 0">
+                                        <Border.BorderBrush>
+                                            <DrawingBrush TileMode="Tile" Viewport="0,0,4,4" ViewportUnits="Absolute">
+                                                <DrawingBrush.Drawing>
+                                                    <GeometryDrawing Brush="#5F41434A">
+                                                        <GeometryDrawing.Geometry>
+                                                            <EllipseGeometry Center="2,2" RadiusX="1" RadiusY="1" />
+                                                        </GeometryDrawing.Geometry>
+                                                    </GeometryDrawing>
+                                                </DrawingBrush.Drawing>
+                                            </DrawingBrush>
+                                        </Border.BorderBrush>
+                                    </Border>
+
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Style for the tab items-->
+        <Style x:Key="Tab" TargetType="{x:Type TabItem}">
+            <Setter Property="Control.FontFamily" Value="Segoe UI Variable Display"/>
+            <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Control.Foreground" Value="#FFFFFFFF"/>
+            <Setter Property="Control.Background" Value="#00ffffff"/>
+            <Setter Property="FrameworkElement.Margin" Value="1"/>
+            <Setter Property="Control.Padding" Value="8,1,8,1"/>
+            <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Control.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid x:Name="templateRoot" 
+                              SnapsToDevicePixels="true" 
+                              Background="{x:Null}">
+
+                            <Border x:Name="mainBorder"
+                                    BorderBrush="#16383838"
+                                    BorderThickness="0.4"
+                                    Background="#16383838" 
+                                    Margin="0,0,3,2" 
+                                    CornerRadius="3.8"/>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="18" 
+                                        ClipToBounds="False"
+                                        Margin="5 0 0 0" >
+                                    <Grid>
+                                        <Image x:Name="Icon"
+                                               Source="/Luna X;component/Graphics/Images/Lua.png"
+                                               Width="18" 
+                                               RenderOptions.BitmapScalingMode="HighQuality" 
+                                               RenderTransformOrigin="0.5,0.5"
+                                               Visibility="Collapsed"/>
+
+                                        <Label x:Name="IconText"
+                                               Content="&#xe7c3;" 
+                                               SnapsToDevicePixels="True"
+                                               TextOptions.TextFormattingMode="Display"
+                                               UseLayoutRounding="True" Width="12"
+                                               Foreground="#DDFFFFFF" 
+                                               FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Segoe Fluent Icons"
+                                               HorizontalContentAlignment="Left" 
+                                               VerticalContentAlignment="Center"
+                                               FontSize="12" 
+                                               RenderTransformOrigin="0.5,0.5"
+                                               Padding="0"
+                                               Visibility="Collapsed"/>
+
+                                        <Label x:Name="IconMisc"
+                                               Content="&#xf249;" 
+                                               SnapsToDevicePixels="True"
+                                               TextOptions.TextFormattingMode="Display"
+                                               UseLayoutRounding="True" Width="12"
+                                               Foreground="#DDFFFFFF" 
+                                               FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Font Awesome 6 Free Solid"
+                                               HorizontalContentAlignment="Left" 
+                                               VerticalContentAlignment="Center"
+                                               FontSize="12" 
+                                               RenderTransformOrigin="0.5,0.5"
+                                               Padding="0"/>
+                                    </Grid>
+                                </Border>
+
+                                <ContentPresenter x:Name="contentPresenter" 
+                                                  ContentSource="Header" 
+                                                  Focusable="false"
+                                                  RecognizesAccessKey="true" 
+                                                  SnapsToDevicePixels="True" Margin="5,6,10,8"
+                                                  TextOptions.TextFormattingMode="Display"
+                                                  UseLayoutRounding="True"
+                                                  HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                  VerticalAlignment="Center"/>
+
+                                <Button x:Name="CloseButton" 
+                                        Margin="5,0,8,0"
+                                        VerticalAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Padding="0 -1 0 0" 
+                                        Height="14"
+                                        Width="14" 
+                                        FontSize="7" 
+                                        FontFamily="Segoe MDL2 Assets"
+                                        Content="&#xe894;"
+                                        Background="Transparent" 
+                                        BorderBrush="Transparent" 
+                                        Foreground="White"
+                                        Click="ButtonTabs"/>
+
+                            </StackPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
+                                               Value="true"/>
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter TargetName="mainBorder" 
+                                        Property="Border.Background" 
+                                        Value="#1f1f1f"/>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+                                               Value="false"/>
+
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+                                               Value="Top"/>
+
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter Property="Panel.ZIndex"
+                                        Value="1"/>
+
+                                <Setter TargetName="mainBorder" 
+                                        Property="Border.Background" 
+                                        Value="#262626"/>
+
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+                                               Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+                                               Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex"
+                                        Value="1"/>
+                                <Setter TargetName="mainBorder" 
+                                        Property="Border.Background" 
+                                        Value="{DynamicResource AccentTransparent}"/>
+                                <Setter TargetName="mainBorder" 
+                                        Property="Border.BorderBrush" 
+                                        Value="{DynamicResource Accent}"/>
+                            </MultiDataTrigger>
+
+                            <DataTrigger Binding="{Binding Header.Text, 
+                                                   RelativeSource={RelativeSource Self}, 
+                                                   Converter={StaticResource EndsWithFinder}, 
+                                                   ConverterParameter='.lua'}"
+                                         Value="True">
+
+                                <Setter TargetName="Icon"
+                                        Property="Visibility"
+                                        Value="Visible" />
+
+                                <Setter TargetName="IconText" 
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+
+                                <Setter TargetName="IconMisc" 
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding Header.Text, 
+                                                   RelativeSource={RelativeSource Self}, 
+                                                   Converter={StaticResource EndsWithFinder}, 
+                                                   ConverterParameter='.txt'}"
+                                         Value="True">
+
+                                <Setter TargetName="Icon"
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+
+                                <Setter TargetName="IconText" 
+                                        Property="Visibility"
+                                        Value="Visible" />
+                                
+                                <Setter TargetName="IconMisc" 
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+
+
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--i honestly have no idea what this does, i dont think its even used-->
+        <Style x:Key="ModdedTabButton" TargetType="{x:Type Button}">
+            <Setter Property="Control.Background" Value="#d82242"/>
+            <Setter Property="Control.Foreground" Value="White"/>
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="3 3 0 0" Background="{TemplateBinding Control.Background}" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="UIElement.IsMouseOver" Value="true">
+                    <TriggerBase.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#404040" Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                  FillBehavior="HoldEnd" Duration="0:0:0.25" AutoReverse="false" RepeatBehavior="1x"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </TriggerBase.EnterActions>
+                    <TriggerBase.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" FillBehavior="HoldEnd"
+                                  Duration="0:0:0.25" AutoReverse="false" RepeatBehavior="1x"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </TriggerBase.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--used for tabname edit-->
+        <Style x:Key="InvisibleTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+            <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
+            <Setter Property="CaretBrush" Value="#FFFFFFFF" />
+            <Setter Property="Foreground" Value="#FFFFFFFF" />
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border
+                                x:Name="border"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer
+                                    x:Name="PART_ContentHost"
+                                    Focusable="False"
+                                    HorizontalScrollBarVisibility="Hidden"
+                                    VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="True" />
+                        <Condition Property="IsSelectionActive" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{StaticResource SystemColors.InactiveSelectionHighlightBrushKey}" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Border x:Name="Main" 
+                Background="#16383838" 
+                BorderBrush="#5F41434A"
+                BorderThickness="1"
+                CornerRadius="4">
+            <Grid>
+                <Border BorderBrush="#5F41434A" 
+                        CornerRadius="0 0 0 0"
+                        VerticalAlignment="Top" 
+                        Height="40"
+                        BorderThickness="0 0 0 1"/>
+                <TabControl x:Name="maintabs"
+                            BorderThickness="0"
+                            Style="{StaticResource Tabs}"
+                            BorderBrush="#FF282828" 
+                            SnapsToDevicePixels="True"
+                            UseLayoutRounding="True"
+                            Margin="4 2 5 5"
+                            Background="{x:Null}"/>
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

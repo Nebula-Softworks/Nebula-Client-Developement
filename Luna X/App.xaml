@@ -1,0 +1,22 @@
+﻿<Application
+    x:Class="Luna_X.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Luna_X"
+    xmlns:System="clr-namespace:System;assembly=System"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="/Graphics/Styles/Text Boxes.xaml" />
+                <ResourceDictionary Source="/Graphics/Styles/Buttons.xaml" />
+                <ResourceDictionary Source="/Graphics/Styles/Colors.xaml" />
+                <ResourceDictionary Source="/Graphics/Styles/Navigation.xaml" />
+                <ResourceDictionary Source="/Graphics/Styles/Scroll Bars.xaml" />
+                <ResourceDictionary Source="/Graphics/Styles/Dropdowns.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

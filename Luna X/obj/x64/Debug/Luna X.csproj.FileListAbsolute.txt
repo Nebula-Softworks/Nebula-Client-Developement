@@ -1,0 +1,56 @@
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Graphics\Styles\Buttons.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Graphics\Styles\Colors.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Graphics\Styles\Navigation.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Graphics\Styles\Scroll Bars.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Graphics\Styles\Text Boxes.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Misc\FullPopup.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Misc\Notification.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Misc\OptionPopup.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Misc\Tab System.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Script Hub\Favourite Script Square.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Script Hub\Script Hub Square.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Settings\Button.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\MainWindow.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\App.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X_Content.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X_MarkupCompile.cache
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X_MarkupCompile.lref
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Luna X.exe.config
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Luna X.exe.manifest
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Luna X.application
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Luna X.exe
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Luna X.pdb
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\DiscordRPC.xml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Microsoft.Web.WebView2.Core.xml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Script Hub\ScriptHub.g.cs
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\App.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Misc\FullPopup.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Misc\Notification.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Misc\OptionPopup.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Misc\Tab System.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Script Hub\Favourite Script Square.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Script Hub\Script Hub Square.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Script Hub\ScriptHub.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Controls\Settings\Button.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Graphics\Styles\Dropdowns.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\MainWindow.baml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.g.resources
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna_X.Properties.Resources.resources
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.csproj.GenerateResource.cache
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.csproj.CoreCompileInputs.cache
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.csproj.Fody.CopyLocal.cache
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.csproj.Fody.RuntimeCopyLocal.cache
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.TrustInfo.xml
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.exe.manifest
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.application
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.csproj.CopyComplete
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.exe
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.pdb
+C:\Users\Ethan\source\repos\Nebula Client Windows\Luna X\obj\x64\Debug\Luna X.csproj.AssemblyReference.cache
