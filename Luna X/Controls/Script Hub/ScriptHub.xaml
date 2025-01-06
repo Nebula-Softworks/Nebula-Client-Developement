@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:Luna_X.Controls.Script_Hub"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      xmlns:materialdesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+      xmlns:materialdesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             IsVisibleChanged="UserControl_IsVisibleChanged">
 
     <!--COPIED FROM MAINWINDOW SO INDENTING IS BAD-->
     
@@ -189,50 +190,28 @@
         </Border>
 
         <!--Script Cards-->
-        <Grid Margin="0, 51, 5 ,5">
-            <Grid x:Name="ScriptScrollers">
+            <Grid x:Name="ScriptScrollers"
+                   Margin="0, 51, 5 ,5">
                 <ScrollViewer x:Name="ScriptBloxScroller"
-                                                              ScrollChanged="ScriptScroller_ScrollChanged"
-                                                               VirtualizingPanel.IsVirtualizing="True"
-                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+                                                              ScrollChanged="ScriptScroller_ScrollChanged">
 
-                    <WrapPanel x:Name="ScriptBloxWrapper"
-                                                               VirtualizingPanel.IsVirtualizing="True"
-                                                               VirtualizingPanel.VirtualizationMode="Recycling">
-                        <!--designer preview
-                                                          <ScriptHubControls:Script_Hub_Square/>
-                                                          <ScriptHubControls:Script_Hub_Square/>
-                                                          <ScriptHubControls:Script_Hub_Square/>
-                                                          <ScriptHubControls:Script_Hub_Square/>
-                                                          <ScriptHubControls:Script_Hub_Square/>
-                                                          <ScriptHubControls:Script_Hub_Square/>
-                                                          <ScriptHubControls:Script_Hub_Square/>
-                                                          <ScriptHubControls:Script_Hub_Square/>-->
-                    </WrapPanel>
+                    <WrapPanel x:Name="ScriptBloxWrapper"/>
 
                 </ScrollViewer>
                 <ScrollViewer x:Name="RscriptsScroller"
                                                               Opacity="0"
                                                               Visibility="Collapsed"
-                                                              ScrollChanged="ScriptScroller_ScrollChanged"
-                                                               VirtualizingPanel.IsVirtualizing="True"
-                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+                                                              ScrollChanged="ScriptScroller_ScrollChanged">
 
-                    <WrapPanel x:Name="RScriptsWrapper"
-                                                               VirtualizingPanel.IsVirtualizing="True"
-                                                               VirtualizingPanel.VirtualizationMode="Recycling"/>
+                    <WrapPanel x:Name="RScriptsWrapper"/>
 
                 </ScrollViewer>
                 <ScrollViewer x:Name="MastersMZScroller"
                                                               Opacity="0"
                                                               Visibility="Collapsed"
-                                                              ScrollChanged="ScriptScroller_ScrollChanged"
-                                                               VirtualizingPanel.IsVirtualizing="True"
-                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+                                                              ScrollChanged="ScriptScroller_ScrollChanged">
 
-                    <Grid x:Name="MastersMZWrapper"
-                                                               VirtualizingPanel.IsVirtualizing="True"
-                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+                    <Grid x:Name="MastersMZWrapper">
 
                         <TextBlock HorizontalAlignment="Center"
                                                                    VerticalAlignment="Center"
@@ -248,29 +227,21 @@
                 <ScrollViewer x:Name="CommunityScroller"
                                                               Opacity="0"
                                                               Visibility="Collapsed"
-                                                              ScrollChanged="ScriptScroller_ScrollChanged"
-                                                               VirtualizingPanel.IsVirtualizing="True"
-                                                               VirtualizingPanel.VirtualizationMode="Recycling">
+                                                              ScrollChanged="ScriptScroller_ScrollChanged">
 
-                    <WrapPanel x:Name="CommunityWrapper"
-                                                               VirtualizingPanel.IsVirtualizing="True"
-                                                               VirtualizingPanel.VirtualizationMode="Recycling"/>
+                    <WrapPanel x:Name="CommunityWrapper"/>
 
                 </ScrollViewer>
             </Grid>
 
-            <ScrollViewer x:Name="FavoriteScriptScroller"
+        <ScrollViewer x:Name="FavoriteScriptScroller"
+                           Margin="0, 51, 5 ,5"
                                                           Opacity="0"
-                                                          Visibility="Collapsed"
-                                                           VirtualizingPanel.IsVirtualizing="True"
-                                                           VirtualizingPanel.VirtualizationMode="Recycling">
+                                                          Visibility="Collapsed">
 
-                <WrapPanel x:Name="FavoriteScriptsWrapper" 
-                                                           VirtualizingPanel.IsVirtualizing="True"
-                                                           VirtualizingPanel.VirtualizationMode="Recycling"/>
+            <WrapPanel x:Name="FavoriteScriptsWrapper" />
 
-            </ScrollViewer>
-        </Grid>
+        </ScrollViewer>
 
 
         <!--THE INFO PAGE DOES NOT WORK, I COULDNT BE BOTHERED TO FINISH IT, SORRY

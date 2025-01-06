@@ -13,6 +13,13 @@
             Margin="8,0,0,8"
             BorderThickness="1"
             CornerRadius="5">
+
+            <Border.Background>
+                <ImageBrush x:Name="Image"
+                            ImageSource="/Luna X;component/Graphics/Images/no-script.png"
+                            Stretch="UniformToFill"/>
+            </Border.Background>
+            
             <Border.CacheMode>
                 <BitmapCache EnableClearType="True" RenderAtScale="1.0" />
             </Border.CacheMode>
@@ -33,13 +40,6 @@
             </Border.Clip>
 
             <Grid>
-                <Image
-                    x:Name="Image"
-                    Margin="0"
-                    VerticalAlignment="Center"
-                    RenderOptions.BitmapScalingMode="HighQuality"
-                    Source="/Luna X;component/Graphics/Images/no-script.png"
-                    Stretch="UniformToFill"/>
                 <Label
                     x:Name="ScriptName"
                     Margin="5,5,115,5"

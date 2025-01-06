@@ -81,7 +81,7 @@ namespace Luna_X.Controls.Script_Hub
         {
             httpClient = new HttpClient();
             await Task.Delay(0);
-            new Thread((ThreadStart)async delegate
+            await Task.Run(async delegate
             {
                 if (string.IsNullOrEmpty(Game_SearchText))
                 {
@@ -122,18 +122,18 @@ namespace Luna_X.Controls.Script_Hub
                                             {
                                                 if (item.game.imageUrl.ToString().Contains("rbxcdn.com"))
                                                 {
-                                                    ScriptBloxWindow.Image.Source = new BitmapImage(new Uri(item.game.imageUrl.ToString()));
+                                                    ScriptBloxWindow.Image.ImageSource = new BitmapImage(new Uri(item.game.imageUrl.ToString()));
                                                 }
                                                 else
                                                 {
-                                                    ScriptBloxWindow.Image.Source = new BitmapImage(new Uri("https://scriptblox.com" + item.game.imageUrl.ToString()));
+                                                    ScriptBloxWindow.Image.ImageSource = new BitmapImage(new Uri("https://scriptblox.com" + item.game.imageUrl.ToString()));
                                                 }
                                             }
                                             catch
                                             {
                                             }
-                                            ScriptBloxWindow.ScriptName.Content = (object)ani.CleanString(item.title.ToString());
-                                            ScriptBloxWindow.GameName.Content = (object)ani.CleanString(item.game.name.ToString());
+                                            ScriptBloxWindow.ScriptName.Content = (string)ani.CleanString(item.title.ToString());
+                                            ScriptBloxWindow.GameName.Content = (string)ani.CleanString(item.game.name.ToString());
                                             ScriptBloxWindow.ExecuteInteract.Click += delegate
                                             {
                                                 api.RunCode(item.script.ToString(), ani.Popups, ani.Blurrer, ani.TabSystemz);
@@ -164,6 +164,10 @@ namespace Luna_X.Controls.Script_Hub
                                                     {
                                                         return;
                                                     }
+                                                    finally
+                                                    {
+                                                        ((IDisposable)content)?.Dispose();
+                                                    }
                                                 }
                                                 jsonstrings jsonstrings = new jsonstrings
                                                 {
@@ -185,6 +189,10 @@ namespace Luna_X.Controls.Script_Hub
                                                 }
                                                 catch
                                                 {
+                                                }
+                                                finally
+                                                {
+                                                    ((IDisposable)content)?.Dispose();
                                                 }
                                             };
                                             ScriptBloxWrapper.Children.Add(ScriptBloxWindow);
@@ -232,15 +240,15 @@ namespace Luna_X.Controls.Script_Hub
                     });
                 }
                 GC.Collect(2, GCCollectionMode.Forced);
-            }).Start();
+            });
 
         }
 
         private void ScriptBloxSearch()
         {
             CurrentPage = 1;
-            ScriptBloxWrapper.Children?.Clear();
-            ScriptBloxScroller?.ScrollToTop();
+            ScriptBloxWrapper.Children.Clear();
+            ScriptBloxScroller.ScrollToTop();
             LoadScriptBlox();
         }
         // ENDSUB-REGION
@@ -248,146 +256,157 @@ namespace Luna_X.Controls.Script_Hub
         // SUB-REGION Rscripts
         private async void LoadRscripts()
         {
-            httpClient = new HttpClient();
-            await Task.Delay(0);
-            new Thread((ThreadStart)async delegate
-            {
-                if (string.IsNullOrEmpty(Game_SearchText))
-                {
-                    Game_SearchText = " ";
-                }
-                try
-                {
-                    string requestUri = $"https://rscripts.net/api/v2/scripts?page={CurrentPage}&notPaid=true&orderBy=date&q={Game_SearchText}";
-                    HttpResponseMessage response = await httpClient.GetAsync(requestUri);
-                    response.EnsureSuccessStatusCode();
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    dynamic val = JsonConvert.DeserializeObject(responseBody);
+            //httpClient = new HttpClient();
+            //await Task.Delay(0);
+            //await Task.Run(async delegate
+            //{
+            //    if (string.IsNullOrEmpty(Game_SearchText))
+            //    {
+            //        Game_SearchText = " ";
+            //    }
+            //    try
+            //    {
+            //        string requestUri = $"https://rscripts.net/api/v2/scripts?page={CurrentPage}&notPaid=true&orderBy=date&q={Game_SearchText}";
+            //        HttpResponseMessage response = await httpClient.GetAsync(requestUri);
+            //        response.EnsureSuccessStatusCode();
+            //        string responseBody = await response.Content.ReadAsStringAsync();
+            //        try
+            //        {
+            //            try
+            //            {
+            //                dynamic val = JsonConvert.DeserializeObject(responseBody);
 
-                    if (Game_SearchText_Changed)
-                    {
-                        Game_SearchText_Changed = false;
-                        MaxPage = val.info.maxPages;
-                    }
+            //                if (Game_SearchText_Changed)
+            //                {
+            //                    Game_SearchText_Changed = false;
+            //                    MaxPage = val.info.maxPages;
+            //                }
 
-                    if (CurrentPage <= MaxPage)
-                    {
-                        await Dispatcher.InvokeAsync(() =>
-                        {
-                            foreach (dynamic item in val.scripts)
-                            {
-                                base.Dispatcher.Invoke(delegate
-                                {
-                                    bool isPatched = false;
-                                    bool flag = false;
-                                    flag = item.keySystem;
-                                    Script_Hub_Square RScriptsWindow = new Script_Hub_Square(isPatched, flag);
-                                    try
-                                    {
-                                        RScriptsWindow.Image.Source = new BitmapImage(new Uri(item.image.ToString()));
-                                    }
-                                    catch
-                                    {
-                                    }
-                                    RScriptsWindow.ScriptName.Content = (object)ani.CleanString(item.title.ToString());
-                                    RScriptsWindow.GameName.Content = ani.CleanString(item?.game?.title?.ToString()); // this for some reason always returns null so we add ? to wait for it to initialize
-                                    RScriptsWindow.ExecuteInteract.Click += delegate
-                                    {
-                                        api.RunCode(ani.HttpGet(item.rawScript.ToString()), ani.Popups, ani.Blurrer, ani.TabSystemz);
-                                    };
-                                    RScriptsWindow.InfoScriptB.Click += delegate
-                                    {
-                                        Clipboard.SetText(ani.HttpGet(item.rawScript.ToString()));
-                                    };
-                                    if (File.Exists(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\fs\" + ani.CleanString(item.title.ToString()) + ".json"))
-                                    {
-                                        RScriptsWindow.FavIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#FFFFAC37");
-                                    }
-                                    else
-                                    {
-                                        RScriptsWindow.FavIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#FFFFFF");
-                                    }
-                                    RScriptsWindow.FavoriteScriptB.Click += delegate
-                                    {
-                                        if (File.Exists(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\fs\" + ani.CleanString(item.title.ToString()) + ".json"))
-                                        {
-                                            try
-                                            {
-                                                File.Delete(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\fs\" + ani.CleanString(item.title.ToString()) + ".json");
-                                                RScriptsWindow.FavIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#FFFFFF");
-                                                return;
-                                            }
-                                            catch
-                                            {
-                                                return;
-                                            }
-                                        }
-                                        jsonstrings jsonstrings = new jsonstrings
-                                        {
-                                            Script = new List<jsonstrings.ScriptHub>
-                                                {
-                                                new jsonstrings.ScriptHub
-                                                {
-                                                    Name = ani.CleanString(item.title.ToString()),
-                                                    GameName = ani.CleanString(item.game.title.ToString()),
-                                                    Image = item.image.ToString(),
-                                                    Script = ani.HttpGet(item.rawScript.ToString())
-                                                }
-                                                }
-                                        };
-                                        try
-                                        {
-                                            File.WriteAllText(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\fs\" + ani.CleanString(item.title.ToString()) + ".json", JsonConvert.SerializeObject((object)jsonstrings, (Newtonsoft.Json.Formatting)1));
-                                            RScriptsWindow.FavIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#FFFFAC37");
-                                        }
-                                        catch
-                                        {
-                                        }
-                                    };
-                                    RScriptsWrapper.Children.Add(RScriptsWindow);
-                                });
-                            }
-                        }, DispatcherPriority.Background);
-                    }
+            //                if (CurrentPage <= MaxPage)
+            //                {
+            //                    await Dispatcher.InvokeAsync(() =>
+            //                    {
+            //                        foreach (dynamic item in val.scripts)
+            //                        {
+            //                            base.Dispatcher.Invoke(delegate
+            //                            {
+            //                                bool isPatched = false;
+            //                                bool flag = false;
+            //                                flag = item.keySystem;
+            //                                Script_Hub_Square RScriptsWindow = new Script_Hub_Square(isPatched, flag);
+            //                                try
+            //                                {
+            //                                    RScriptsWindow.Image.ImageSource = new BitmapImage(new Uri(item.image.ToString()));
+            //                                }
+            //                                catch
+            //                                {
+            //                                }
+            //                                RScriptsWindow.ScriptName.Content = ani.CleanString(item.title.ToString());
+            //                                RScriptsWindow.GameName.Content = ani.CleanString(item?.game?.title?.ToString()); // this for some reason always returns null so we add ? to wait for it to initialize
+            //                                RScriptsWindow.ExecuteInteract.Click += delegate
+            //                                {
+            //                                    api.RunCode(ani.HttpGet(item.rawScript.ToString()), ani.Popups, ani.Blurrer, ani.TabSystemz);
+            //                                };
+            //                                RScriptsWindow.InfoScriptB.Click += delegate
+            //                                {
+            //                                    Clipboard.SetText(ani.HttpGet(item.rawScript.ToString()));
+            //                                };
+            //                                if (File.Exists(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\fs\" + ani.CleanString(item.title.ToString()) + ".json"))
+            //                                {
+            //                                    RScriptsWindow.FavIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#FFFFAC37");
+            //                                }
+            //                                else
+            //                                {
+            //                                    RScriptsWindow.FavIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#FFFFFF");
+            //                                }
+            //                                RScriptsWindow.FavoriteScriptB.Click += delegate
+            //                                {
+            //                                    if (File.Exists(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\fs\" + ani.CleanString(item.title.ToString()) + ".json"))
+            //                                    {
+            //                                        try
+            //                                        {
+            //                                            File.Delete(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\fs\" + ani.CleanString(item.title.ToString()) + ".json");
+            //                                            RScriptsWindow.FavIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#FFFFFF");
+            //                                            return;
+            //                                        }
+            //                                        catch
+            //                                        {
+            //                                            return;
+            //                                        }
+            //                                    }
+            //                                    jsonstrings jsonstrings = new jsonstrings
+            //                                    {
+            //                                        Script = new List<jsonstrings.ScriptHub>
+            //                                    {
+            //                                    new jsonstrings.ScriptHub
+            //                                    {
+            //                                        Name = ani.CleanString(item.title.ToString()),
+            //                                        GameName = ani.CleanString(item.game.title.ToString()),
+            //                                        Image = item.image.ToString(),
+            //                                        Script = ani.HttpGet(item.rawScript.ToString())
+            //                                    }
+            //                                    }
+            //                                    };
+            //                                    try
+            //                                    {
+            //                                        File.WriteAllText(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\fs\" + ani.CleanString(item.title.ToString()) + ".json", JsonConvert.SerializeObject(jsonstrings, (Formatting)1));
+            //                                        RScriptsWindow.FavIcon.Foreground = (Brush)new BrushConverter().ConvertFromString("#FFFFAC37");
+            //                                    }
+            //                                    catch
+            //                                    {
+            //                                    }
+            //                                };
+            //                                RScriptsWrapper.Children.Add(RScriptsWindow);
+            //                            });
+            //                        }
+            //                    }, DispatcherPriority.Background);
+            //                }
+            //            }
+            //            finally
+            //            {
+            //                ((IDisposable)response)?.Dispose();
+            //            }
+            //        }
+            //        finally
+            //        {
+            //            ((IDisposable)response)?.Dispose();
+            //        }
 
-                }
-                catch (Exception ex)
-                {
-                    await Dispatcher.InvokeAsync(() =>
-                    {
-                        var errorPopup = new OptionPopup("Rscripts API Error", $"An error occurred while fetching scripts:\n{ex.Message}", "OK");
-                        errorPopup.Main.Click += delegate
-                        {
-                            ani.Popups.Children.Remove(errorPopup);
-                            ani.Blurrer.Radius = 0;
-                            ani.TabSystemz.Visibility = Visibility.Visible;
-                        };
-                        errorPopup.Secondary.Click += delegate
-                        {
-                            ani.Popups.Children.Remove(errorPopup);
-                            ani.Blurrer.Radius = 0;
-                            ani.TabSystemz.Visibility = Visibility.Visible;
-                        };
-                        ani.Popups.Children.Add(errorPopup);
-                        ani.Blurrer.Radius = 30;
-                        ani.TabSystemz.Visibility = Visibility.Collapsed;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        await Dispatcher.InvokeAsync(() =>
+            //        {
+            //            var errorPopup = new OptionPopup("Rscripts API Error", $"An error occurred while fetching scripts:\n{ex.Message}", "OK");
+            //            errorPopup.Main.Click += delegate
+            //            {
+            //                ani.Popups.Children.Remove(errorPopup);
+            //                ani.Blurrer.Radius = 0;
+            //                ani.TabSystemz.Visibility = Visibility.Visible;
+            //            };
+            //            errorPopup.Secondary.Click += delegate
+            //            {
+            //                ani.Popups.Children.Remove(errorPopup);
+            //                ani.Blurrer.Radius = 0;
+            //                ani.TabSystemz.Visibility = Visibility.Visible;
+            //            };
+            //            ani.Popups.Children.Add(errorPopup);
+            //            ani.Blurrer.Radius = 30;
+            //            ani.TabSystemz.Visibility = Visibility.Collapsed;
 
-                        File.WriteAllText(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\errors\{DateTime.Now.ToLongDateString()}.error", ex.ToString());
-                        ani.print(ex.ToString());
-                    });
-                }
-                finally
-                {
-                    GC.Collect(2, GCCollectionMode.Forced);
-                }
-            }).Start();
+            //            File.WriteAllText(@$"C:\Users\{Environment.UserName}\AppData\Local\Nebula Softworks\Nebula Client\Luna X\cache\errors\{DateTime.Now.ToLongDateString()}.error", ex.ToString());
+            //            ani.print(ex.ToString());
+            //        });
+            //    }
+            //    GC.Collect(2, GCCollectionMode.Forced);
+            //});
         }
 
         private void RscriptsSearch()
         {
             CurrentPage = 1;
-            RScriptsWrapper.Children?.Clear();
-            RscriptsScroller?.ScrollToTop();
+            RScriptsWrapper.Children.Clear();
+            RscriptsScroller.ScrollToTop();
             LoadRscripts();
         }
         // ENDSUB-REGION
@@ -415,7 +434,7 @@ namespace Luna_X.Controls.Script_Hub
                             Favourite_Script_Square FavoritedScript = new Favourite_Script_Square(isPatched, flag);
                             try
                             {
-                                FavoritedScript.Image.Source = !item[(object)"Image"].ToString().Contains("rbxcdn.com") ? (ImageSource)new BitmapImage(new Uri("https://scriptblox.com" + item[(object)"Image"].ToString())) : (ImageSource)new BitmapImage(new Uri(item[(object)"Image"].ToString()));
+                                FavoritedScript.Image.ImageSource = !item[(object)"Image"].ToString().Contains("rbxcdn.com") ? (ImageSource)new BitmapImage(new Uri("https://scriptblox.com" + item[(object)"Image"].ToString())) : (ImageSource)new BitmapImage(new Uri(item[(object)"Image"].ToString()));
                             }
                             catch
                             {
@@ -488,7 +507,7 @@ namespace Luna_X.Controls.Script_Hub
                     ScriptScroller = CommunityScroller;
                     break;
             }
-            if ((ScriptScroller.ScrollableHeight < 0.0 || ScriptScroller.VerticalOffset == ScriptScroller.ScrollableHeight) && CurrentPage < MaxPage)
+            if (ScriptScroller.VerticalOffset == ScriptScroller.ScrollableHeight && CurrentPage < MaxPage)
             {
                 CurrentPage++;
                 switch (ScriptHubSelect.SelectedIndex)
@@ -512,7 +531,7 @@ namespace Luna_X.Controls.Script_Hub
                 case "CloudScriptButton":
                     CloudScriptButton.Foreground = TryFindResource("Accent") as LinearGradientBrush;
                     FavouriteScriptButton.Foreground = Brushes.White;
-                    ani.EnableGrid(ScriptScrollers);
+                    ani.EnableGridCustom(ScriptScrollers, new Thickness(0, 51, 5, 5));
                     ani.DisableGrid(FavoriteScriptScroller);
                     ScriptHubSelect.IsEnabled = true;
                     break;
@@ -520,10 +539,23 @@ namespace Luna_X.Controls.Script_Hub
                     CloudScriptButton.Foreground = Brushes.White;
                     FavouriteScriptButton.Foreground = TryFindResource("Accent") as LinearGradientBrush;
                     ani.DisableGrid(ScriptScrollers);
-                    ani.EnableGrid(FavoriteScriptScroller);
+                    ani.EnableGridCustom(FavoriteScriptScroller, new Thickness(0, 51, 5, 5));
                     ScriptHubSelect.IsEnabled = false;
                     LoadFavoriteScripts();
                     break;
+            }
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Collapsed)
+            {
+                ScriptBloxWrapper.Children.Clear();
+                RScriptsWrapper.Children.Clear();
+            }
+            else
+            {
+                ScriptBloxScroller.ScrollToVerticalOffset(ScriptBloxScroller.VerticalOffset + 1);
             }
         }
     }

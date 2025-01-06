@@ -50,18 +50,18 @@
             Margin="12"
             BorderThickness="1.2">
 
-        <!--<Border.Effect>
+        <Border.Effect>
             <DropShadowEffect ShadowDepth="0"
                               x:Name="Shadow"
                               Color="#090909"
                               BlurRadius="12"
                               Opacity="1"/>
-        </Border.Effect>-->
+        </Border.Effect>
 
         <Grid>
 
             <!--Disable This In Designer view since this is a build only function and will desttroy the designer preview-->
-            <Grid.Clip>
+            <!--<Grid.Clip>
                 <RectangleGeometry RadiusX="8" RadiusY="8">
                     <RectangleGeometry.Rect>
                         <MultiBinding Converter="{StaticResource RC}">
@@ -70,7 +70,7 @@
                         </MultiBinding>
                     </RectangleGeometry.Rect>
                 </RectangleGeometry>
-            </Grid.Clip>
+            </Grid.Clip>-->
 
             <!--Main Window-->
             <Grid>
@@ -79,13 +79,6 @@
                                     Radius="0"
                                     KernelType="Gaussian"/>
                     </Grid.Effect>
-
-                    <!--only for gif-->
-                    <MediaElement x:Name="BackgroundImage" 
-                                  Visibility="Collapsed" 
-                                  Stretch="UniformToFill"
-                                  LoadedBehavior="Manual"
-                                  UnloadedBehavior="Manual"/>
                     
                     <!--#region Topbar-->
                     <Grid x:Name="Topbar"
@@ -280,17 +273,14 @@
 
                     <Border x:Name="ContentHolder"
                             CornerRadius="8 0 8 0"
-                            Margin="49 38 0 0"
+                            Margin="49 35 0 0"
                             BorderThickness="1 1 0 0"
                             BorderBrush="#4E3e4142"
                             Background="#131215">
 
-                        <Grid VirtualizingPanel.IsVirtualizing="True"
-                              VirtualizingPanel.VirtualizationMode="Recycling">
+                        <Grid>
 
-                            <Grid x:Name="MainTabs" 
-                                  VirtualizingPanel.IsVirtualizing="True"
-                                  VirtualizingPanel.VirtualizationMode="Recycling">
+                            <Grid x:Name="MainTabs" >
 
                                 <Grid.Effect>
                                     <!--Blur to make home tab look like comet-->
@@ -416,7 +406,7 @@
                                         </Border>
 
 
-                                    <!--<Border x:Name="ExecButtons"
+                                    <Border x:Name="ExecButtons"
                                             VerticalAlignment="Bottom"
                                             HorizontalAlignment="Right"
                                                 Height="35"
@@ -605,7 +595,7 @@
                                                     ToolTipService.InitialShowDelay="500">
 
                                                 <Grid>
-                                                    --><!--f053--><!--
+                                                    <!--f053-->
                                                     <Label x:Name="ViewMoreLabel"
                                                            Content="&#xf054;"
                                                            FontFamily="/Luna X;component/Graphics/Fonts/Icon/#Font Awesome 6 Free Solid"
@@ -781,7 +771,7 @@
 
                                         </StackPanel>
 
-                                    </Border>-->
+                                    </Border>
 
                                     <Button x:Name="WorkspaceButton"
                                             VerticalAlignment="Bottom"
@@ -823,7 +813,7 @@
                                 <Grid x:Name="Cloud"
                                       Visibility="Collapsed"
                                       Opacity="0">
-                                    <ScriptHubControls:ScriptHub/>
+                                    <ScriptHubControls:ScriptHub x:Name="CloudControl"/>
                                 </Grid>
                                 <!--#endregion-->
 
@@ -1130,9 +1120,9 @@
                                         Height="279"
                                         HorizontalAlignment="Right" 
                                         Width="449">
-                                    <!--<Border.Effect>
+                                    <Border.Effect>
                                         <BlurEffect Radius="750"/>
-                                    </Border.Effect>-->
+                                    </Border.Effect>
                                     <Border.Background>
                                         <LinearGradientBrush>
                                             <LinearGradientBrush.RelativeTransform>
@@ -1153,9 +1143,9 @@
                                         Height="237"
                                         HorizontalAlignment="Left"
                                         Width="758">
-                                    <!--<Border.Effect>
+                                    <Border.Effect>
                                         <BlurEffect Radius="750"/>
-                                    </Border.Effect>-->
+                                    </Border.Effect>
                                     <Border.Background>
                                         <LinearGradientBrush>
                                             <LinearGradientBrush.RelativeTransform>
@@ -1194,7 +1184,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="40 155"/>
 
-                                <!--<Grid x:Name="Interactions"
+                                <Grid x:Name="Interactions"
                                       Margin="30"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Top"
@@ -1366,7 +1356,7 @@
 
                                     </Grid>
 
-                                </Grid>-->
+                                </Grid>
 
                             </Grid>
                             <!--#endregion-->

@@ -493,7 +493,7 @@ namespace Luna_X
             if (BlurMain != null && TabSystemz != null && MainTabs != null)
             {
                 BlurMain.Radius = 0;
-                var cm = TabSystemz;
+                var cm = TabSystemz.current_monaco();
                 if (cm != null) cm.Visibility = Visibility.Collapsed; // microsoft made wbeview2 absolute shit where its a whole nother window so zindex and opacity is all fucked up
                 foreach (Grid tab in MainTabs.Children)
                 {
@@ -502,9 +502,16 @@ namespace Luna_X
                 if (Home != null) Fade(Home, halfsecond, 0, smoothEase());
                 if (grid != null) EnableGrid(grid);
                 if (Home != null) DisableGrid(Home);
-                await Task.Delay(600);
+                await Task.Delay(900);
                 cm.Visibility = Visibility.Visible; // so we gotta fucking do this;
-                cm.current_monaco().Visibility = Visibility.Visible;
+                if (grid == Cloud)
+                {
+                    CloudControl.Visibility = Visibility.Visible;
+                } 
+                else
+                {
+                    CloudControl.Visibility = Visibility.Collapsed;
+                }
             }
 
         }
@@ -683,7 +690,27 @@ namespace Luna_X
                 Fade(Selectedgrid, halfsecond, 1, smoothEase()).Begin();
                 ObjectShift(Selectedgrid, halfsecond, new Thickness(0.0, 0.0, 0.0, 0.0), smoothEase()).Begin();
             }
-        } 
+        }
+
+        public void EnableGridCustom(UIElement selectedGrid, Thickness thickness)
+        {
+            if (selectedGrid != null && selectedGrid is Panel SelectedGrid)
+            {
+                SelectedGrid.Margin = new Thickness(0.0, 260.0, 0.0, -260.0);
+                SelectedGrid.Visibility = Visibility.Visible;
+                Fade(SelectedGrid, halfsecond, 1, smoothEase()).Begin();
+                ObjectShift(SelectedGrid, halfsecond, thickness, smoothEase()).Begin();
+            }
+            else if (selectedGrid != null)
+            {
+                ScrollViewer Selectedgrid = (ScrollViewer)selectedGrid;
+                Selectedgrid.Margin = new Thickness(0.0, 260.0, 0.0, -260.0);
+                Selectedgrid.Visibility = Visibility.Visible;
+                Fade(Selectedgrid, halfsecond, 1, smoothEase()).Begin();
+                ObjectShift(Selectedgrid, halfsecond, thickness, smoothEase()).Begin();
+            }
+        }
+
         public async void DisableGrid(UIElement selectedGrid)
         {
             if(selectedGrid != null && selectedGrid is Panel SelectedGrid)
@@ -753,7 +780,7 @@ namespace Luna_X
 
             if (LegacyAlignment == true)
             {
-                //ExecButtons.HorizontalAlignment = HorizontalAlignment.Left;
+                ExecButtons.HorizontalAlignment = HorizontalAlignment.Left;
             }
 
             Distrubutor = File.ReadAllText("./bin/redistrubutor.nebula");
@@ -805,9 +832,8 @@ namespace Luna_X
             }, System.Windows.Application.Current.Dispatcher);
             clock.Start();
 
-            LoadScriptHub();
 
-            BorderBackground.Drop += (System.Windows.DragEventHandler)((s, e) =>
+            BorderBackground.Drop += ((s, e) =>
             {
                 try
                 {
@@ -828,7 +854,7 @@ namespace Luna_X
                                 Stretch = Stretch.UniformToFill,
                             };
                             ContentHolder.Background = new SolidColorBrush() { Color = Color.FromArgb(188, 19, 18, 21) };
-                            BackgroundImage.Visibility = Visibility.Collapsed;
+                            //BackgroundImage.Visibility = Visibility.Collapsed;
                             break;
                         // gif is literally put together with sticks and glue :sob:
                         case ".gif":
@@ -840,16 +866,7 @@ namespace Luna_X
                                 cm.Visibility = Visibility.Visible;
                                 BackgroundPath = data[0];
 
-                                BackgroundImage.Source = new Uri(data[0]);
-                                BackgroundImage.Play();
-                                BackgroundImage.Visibility = Visibility.Visible;
-                                ContentHolder.Background = new SolidColorBrush() { Color = Color.FromArgb(188, 19, 18, 21) };
-                                BorderBackground.Background = null;
-                                BackgroundImage.MediaEnded += delegate
-                                {
-                                    BackgroundImage.Position = TimeSpan.Zero;
-                                    BackgroundImage.Play();
-                                };
+                                //
                             }; og.Secondary.Click += delegate
                             {
                                 Popups.Children.Remove(og);
@@ -978,33 +995,26 @@ namespace Luna_X
                     {
                         var cm = TabSystemz.current_monaco();
                         if (cm != null) cm.Visibility = Visibility.Collapsed;
-                        TabSystemz.Visibility = Visibility.Visible;
                     }
                     await Task.Delay(1000);
                     break;
                 case "ExecRadioBtn":
                     TabSet(Executor);
-                    await Task.Delay(1000);
                     break;
                 case "CloudRadioBtn":
                     TabSet(Cloud);
-                    await Task.Delay(1000);
                     break;
                 case "QuickRadioBtn":
                     TabSet(QuickPanel);
-                    await Task.Delay(1000);
                     break;
                 case "PluginRadioBtn":
                     TabSet(Packages);
-                    await Task.Delay(1000);
                     break;
                 case "FriendsRadioBtn":
                     TabSet(Friends);
-                    await Task.Delay(1000);
                     break;
                 case "SettingsRadioBtn":
                     TabSet(Settings);
-                    await Task.Delay(1000);
                     break;
             }
         }
@@ -1105,16 +1115,16 @@ namespace Luna_X
             if (w == 205)
             {
                 x = 30;
-                //Extra.ToolTip = "View More";
-                //ViewMoreLabel.Content = "";
+                Extra.ToolTip = "View More";
+                ViewMoreLabel.Content = "";
             }
             else 
             { 
                 x = 205;
-                //Extra.ToolTip = "View Less";
-                //ViewMoreLabel.Content = "";
+                Extra.ToolTip = "View Less";
+                ViewMoreLabel.Content = "";
             }
-            //Resize(Extra, halfsecond, Extra.Height, x, smoothEase()).Begin();
+            Resize(Extra, halfsecond, Extra.Height, x, smoothEase()).Begin();
         }
 
         public void ExecFile_Click(object sender, RoutedEventArgs e)
@@ -1803,11 +1813,6 @@ namespace Luna_X
         //            break;
         //    }
         //}
-
-        public void LoadScriptHub()
-        {
-            cloud = new ScriptHub();
-        }
 
         #endregion
     }
